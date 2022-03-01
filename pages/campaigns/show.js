@@ -59,16 +59,16 @@ const cardValues = [
         Description: "people have already contributed to this campaign.",
     },
     {
-        Heading: "Requests",
-        Value: "12",
-        Description: "requests have been made by this campaign's manager.",
+        Heading: "Balance",
+        Value: "0.0 ether",
+        Description: "is the balance of this campaign's wallet.",
     },
 ];
 
 const show = ({ address }) => {
     const renderDetails = () => {
         return Array.from(cardValues).map((_, index) => (
-            <Grid item xs={12} md={6} lg={4} key={index}>
+            <Grid item xs={12} lg={6} key={index}>
                 <CampaignCard
                     Heading={cardValues[index].Heading}
                     // Replace with campaign details obtained from
@@ -90,69 +90,82 @@ const show = ({ address }) => {
             >
                 Campaign Details
             </Typography>
-            <Grid container spacing={2}>
-                {renderDetails()}
-                <Grid item xs={12} md={6} lg={4}>
-                    <Card variant="outlined" sx={{ height: "180px" }}>
-                        <CardContent>
-                            <Typography
-                                sx={{ fontSize: 18 }}
-                                color="text.secondary"
-                            >
-                                Contribute
-                            </Typography>
-                            <TextField
-                                id="mincont"
-                                variant="outlined"
-                                required
-                                sx={{
-                                    marginTop: "20px",
-                                    width: "70%",
-                                }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            wei
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <ThemeProvider theme={black}>
-                                <Button
-                                    variant="contained"
-                                    elevation={0}
-                                    sx={{
-                                        marginTop: "20px",
-                                        width: "25%",
-                                        marginLeft: "20px",
-                                        height: "55px",
-                                    }}
-                                >
-                                    Donate
-                                </Button>
-                            </ThemeProvider>
-                        </CardContent>
-                    </Card>
+            <Grid container columnSpacing={2}>
+                <Grid container item spacing={2} xs={12} lg={8}>
+                    {renderDetails()}
                 </Grid>
-                <Grid item xs={12} md={6} lg={4}>
-                    <CardActionArea>
+                <Grid container item spacing={2} xs={12} lg={4}>
+                    <Grid item xs={12}>
                         <Card variant="outlined" sx={{ height: "180px" }}>
                             <CardContent>
                                 <Typography
                                     sx={{ fontSize: 18 }}
                                     color="text.secondary"
-                                    gutterBottom
                                 >
-                                    Approve Requests
+                                    Contribute
                                 </Typography>
-                                <br />
-                                <Typography variant="body1">
-                                    Click here to view and approve pending
-                                    requests for this campaign.
-                                </Typography>
+                                <TextField
+                                    id="mincont"
+                                    variant="outlined"
+                                    required
+                                    sx={{
+                                        marginTop: "20px",
+                                        width: "70%",
+                                    }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                Ether
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                                <ThemeProvider theme={black}>
+                                    <Button
+                                        variant="contained"
+                                        elevation={0}
+                                        sx={{
+                                            marginTop: "20px",
+                                            width: "25%",
+                                            marginLeft: "20px",
+                                            height: "55px",
+                                        }}
+                                    >
+                                        Donate
+                                    </Button>
+                                </ThemeProvider>
                             </CardContent>
                         </Card>
-                    </CardActionArea>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <CardActionArea>
+                            <Card variant="outlined" sx={{ height: "180px" }}>
+                                <CardContent>
+                                    <Typography
+                                        sx={{ fontSize: 18 }}
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        Requests
+                                    </Typography>
+                                    <Typography
+                                        gutterBottom
+                                        variant="h3"
+                                        component="div"
+                                        sx={{ fontSize: "30px" }}
+                                    >
+                                        12
+                                    </Typography>
+
+                                    <Typography variant="body1">
+                                        requests have been made by this
+                                        campaign's manager. Click here to view
+                                        and approve them.
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </CardActionArea>
+                    </Grid>
                 </Grid>
             </Grid>
         </Layout>
