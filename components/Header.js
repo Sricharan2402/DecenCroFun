@@ -20,7 +20,7 @@ export default () => {
                         cursor: "pointer",
                     }}
                 >
-                    <Link href="/" underline="none" sx={{ color: "white" }}>
+                    <Link href="/" underline="none" sx={{ all: "unset" }}>
                         DecenCroFun
                     </Link>
                 </Typography>

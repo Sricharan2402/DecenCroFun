@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import Layout from "../../components/Layout";
+import React, { useState } from "react";
 import { black } from "../../components/extras";
+import Layout from "../../components/Layout";
 import {
     Grid,
     Card,
     CardContent,
     CardActionArea,
     Typography,
-    Link,
     TextField,
     InputAdornment,
     Button,
     ThemeProvider,
+    Link,
 } from "@mui/material";
 
 const CampaignCard = ({ Heading, Value, Description }) => {
@@ -66,6 +66,20 @@ const cardValues = [
 ];
 
 const show = ({ address }) => {
+    const [donationAmount, setDonationAmount] = useState(0);
+
+    const handleContribute = () => {
+        console.log(donationAmount);
+        document.getElementById("donAmt").value = "";
+        /*
+        .
+        .
+        .
+        */
+        setDonationAmount(0);
+        console.log(address);
+        location.reload();
+    };
     const renderDetails = () => {
         return Array.from(cardValues).map((_, index) => (
             <Grid item xs={12} lg={6} key={index}>
@@ -105,7 +119,7 @@ const show = ({ address }) => {
                                     Contribute
                                 </Typography>
                                 <TextField
-                                    id="mincont"
+                                    id="donAmt"
                                     variant="outlined"
                                     required
                                     sx={{
@@ -119,6 +133,9 @@ const show = ({ address }) => {
                                             </InputAdornment>
                                         ),
                                     }}
+                                    onChange={(e) => {
+                                        setDonationAmount(e.target.value);
+                                    }}
                                 />
                                 <ThemeProvider theme={black}>
                                     <Button
@@ -130,6 +147,7 @@ const show = ({ address }) => {
                                             marginLeft: "20px",
                                             height: "55px",
                                         }}
+                                        onClick={handleContribute}
                                     >
                                         Donate
                                     </Button>
@@ -138,33 +156,39 @@ const show = ({ address }) => {
                         </Card>
                     </Grid>
                     <Grid item xs={12}>
-                        <CardActionArea>
-                            <Card variant="outlined" sx={{ height: "180px" }}>
-                                <CardContent>
-                                    <Typography
-                                        sx={{ fontSize: 18 }}
-                                        color="text.secondary"
-                                        gutterBottom
-                                    >
-                                        Requests
-                                    </Typography>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h3"
-                                        component="div"
-                                        sx={{ fontSize: "30px" }}
-                                    >
-                                        12
-                                    </Typography>
+                        <Card variant="outlined" sx={{ height: "180px" }}>
+                            <Link
+                                href={`/campaigns/${address}/requests`}
+                                sx={{ all: "unset" }}
+                            >
+                                <CardActionArea>
+                                    <CardContent>
+                                        <Typography
+                                            sx={{ fontSize: 18 }}
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            Requests
+                                        </Typography>
+                                        <Typography
+                                            gutterBottom
+                                            variant="h3"
+                                            component="div"
+                                            sx={{ fontSize: "30px" }}
+                                        >
+                                            12
+                                        </Typography>
 
-                                    <Typography variant="body1">
-                                        requests have been made by this
-                                        campaign's manager. Click here to view
-                                        and approve them.
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </CardActionArea>
+                                        <Typography variant="body1">
+                                            requests have been made for this
+                                            campaign. Click here to approve them
+                                            if you are an approver or create
+                                            requests if you are the manager.
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Link>
+                        </Card>
                     </Grid>
                 </Grid>
             </Grid>
