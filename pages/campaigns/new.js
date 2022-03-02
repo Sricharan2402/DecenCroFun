@@ -12,11 +12,11 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Router } from "../../routes";
 
 export default () => {
-    const [campaginName, setCampaignName] = useState();
+    const [campaignName, setCampaignName] = useState();
     const [minContribution, setMinContribution] = useState();
 
     const handleCreate = () => {
-        console.log(campaginName);
+        console.log(campaignName);
         console.log(minContribution);
         handleReset();
 

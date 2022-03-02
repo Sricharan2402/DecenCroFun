@@ -9,12 +9,14 @@ import {
     Button,
     ThemeProvider,
 } from "@mui/material";
+import { Router } from "../../../routes";
 
 const RequestCard = ({
     ID,
     Approvers,
     totalContributors,
     Description,
+    ReceiverWalletID,
     Amount,
 }) => {
     return (
@@ -32,14 +34,22 @@ const RequestCard = ({
                 <Typography variant="h4" sx={{ fontSize: 25 }} gutterBottom>
                     {`Request ID: ${ID}`}
                 </Typography>
+
+                <Typography
+                    gutterBottom
+                    variant="h2"
+                    component="div"
+                    sx={{ fontSize: "24px", marginTop: "40px" }}
+                >
+                    {`${Description}`}
+                </Typography>
                 <Typography
                     gutterBottom
                     variant="h5"
                     component="div"
                     sx={{
-                        fontSize: "25px",
+                        fontSize: "40px",
                         float: "right",
-                        marginTop: "20px",
                         marginLeft: "50px",
                     }}
                 >
@@ -47,11 +57,14 @@ const RequestCard = ({
                 </Typography>
                 <Typography
                     gutterBottom
-                    variant="h2"
                     component="div"
-                    sx={{ fontSize: "22px", marginTop: "20px" }}
+                    color="text.secondary"
+                    sx={{
+                        fontSize: "25px",
+                        marginTop: "20px",
+                    }}
                 >
-                    {`${Description}`}
+                    {`Receiver Wallet ID: ${ReceiverWalletID}`}
                 </Typography>
                 <ThemeProvider theme={black}>
                     <Button
@@ -91,6 +104,7 @@ const requestValues = [
         Approvers: "10",
         totalContributors: "35",
         Description: "Bill for 2 EC2 instances for the month of Feb.",
+        ReceiverWalletID: "0xSNONS2ASIOS",
         Amount: "0.002",
     },
     {
@@ -98,11 +112,12 @@ const requestValues = [
         Approvers: "8",
         totalContributors: "35",
         Description: "Bill for 2 ECS instances for the month of Feb.",
+        ReceiverWalletID: "0xSNONS2ASIOS",
         Amount: "0.003",
     },
 ];
 
-export default () => {
+const Requests = ({ address }) => {
     const renderDetails = () => {
         return Array.from(requestValues).map((_, index) => (
             <Grid item xs={12} lg={6}>
@@ -111,7 +126,9 @@ export default () => {
                     Approvers={requestValues[index].Approvers}
                     totalContributors={requestValues[index].totalContributors}
                     Description={requestValues[index].Description}
+                    ReceiverWalletID={requestValues[index].ReceiverWalletID}
                     Amount={requestValues[index].Amount}
+                    key={index}
                 ></RequestCard>
             </Grid>
         ));
@@ -125,13 +142,16 @@ export default () => {
                     elevation={0}
                     sx={{
                         marginTop: "20px",
-                        width: "25%",
+                        width: "20%",
                         height: "55px",
                         marginLeft: "20px",
                         float: "right",
                     }}
+                    onClick={() => {
+                        Router.pushRoute(`/campaigns/${address}/requests/new`);
+                    }}
                 >
-                    Create Request
+                    Create a New Request
                 </Button>
             </ThemeProvider>
             <Typography
@@ -148,3 +168,9 @@ export default () => {
         </Layout>
     );
 };
+
+Requests.getInitialProps = async (props) => ({
+    address: props.query.address,
+});
+
+export default Requests;

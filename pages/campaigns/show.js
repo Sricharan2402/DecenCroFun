@@ -65,7 +65,7 @@ const cardValues = [
     },
 ];
 
-const show = ({ address }) => {
+const Show = ({ address }) => {
     const [donationAmount, setDonationAmount] = useState(0);
 
     const handleContribute = () => {
@@ -196,8 +196,8 @@ const show = ({ address }) => {
     );
 };
 
-show.getInitialProps = async (props) => ({
+Show.getInitialProps = async (props) => ({
     address: props.query.address,
 });
 
-export default show;
+export default Show;
